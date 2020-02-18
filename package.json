@@ -26,5 +26,5 @@
     "build": "tsc && node build.js",
     "test": "eslint \"./src/**/*.ts\" && jest --coverage"
   },
-  "version": "1.0.0"
+  "version": "1.0.1"
 }
