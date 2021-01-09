@@ -34,5 +34,5 @@
     "build": "tsc && node build.js",
     "test": "prettier --check \"./src/**/*.ts\" && eslint \"./src/**/*.ts\" && tsc --noEmit && jest --coverage"
   },
-  "version": "1.0.4"
+  "version": "1.0.5"
 }
