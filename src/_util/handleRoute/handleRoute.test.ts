@@ -9,9 +9,7 @@ test('handleRoute', async () => {
 
   app.get('/', handleRoute(handler));
 
-  const response = await request(app)
-    .get('/')
-    .expect(200);
+  const response = await request(app).get('/').expect(200);
 
   expect(handler).toBeCalledTimes(1);
   expect(response.body).toStrictEqual({ status: 'OK' });
@@ -27,13 +25,25 @@ test('handleRoute with response', async () => {
 
   app.get('/', handleRoute(handler));
 
-  const response = await request(app)
-    .get('/')
-    .expect(200);
+  const response = await request(app).get('/').expect(200);
 
   expect(handler).toBeCalledTimes(1);
   expect(response.body).toStrictEqual({
     body: { message: 'Hello World' },
+    status: 'OK',
+  });
+});
+
+test('handleRoute without body property', async () => {
+  const app = express();
+  const handler = jest.fn(() => Promise.resolve(undefined));
+
+  app.get('/', handleRoute(handler));
+
+  const response = await request(app).get('/').expect(200);
+
+  expect(handler).toBeCalledTimes(1);
+  expect(response.body).toStrictEqual({
     status: 'OK',
   });
 });
@@ -47,9 +57,7 @@ test('handleRoute exception', async () => {
   app.get('/', handleRoute(handler));
   app.use(handleError);
 
-  const response = await request(app)
-    .get('/')
-    .expect(500);
+  const response = await request(app).get('/').expect(500);
 
   expect(handler).toBeCalledTimes(1);
   expect(response.body).toStrictEqual({

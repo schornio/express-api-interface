@@ -6,9 +6,7 @@ import request from 'supertest';
 test('Setup express.js app', async () => {
   const app = new App();
   const expressApp = app.setup();
-  await request(expressApp)
-    .get('/notfound')
-    .expect(404);
+  await request(expressApp).get('/notfound').expect(404);
 });
 
 test('registerRoutes', async () => {
@@ -19,9 +17,7 @@ test('registerRoutes', async () => {
   app.registerRoutes([['/test', testRoute]]);
 
   const expressApp = app.setup();
-  await request(expressApp)
-    .get('/test')
-    .expect(200);
+  await request(expressApp).get('/test').expect(200);
 });
 
 test('registerMiddlewares global', async () => {
@@ -31,9 +27,7 @@ test('registerMiddlewares global', async () => {
   ]);
 
   const expressApp = app.setup();
-  const response = await request(expressApp)
-    .get('/')
-    .expect(200);
+  const response = await request(expressApp).get('/').expect(200);
 
   expect(response.text).toBe('Global handler');
 });
@@ -45,18 +39,14 @@ test('registerMiddlewares local', async () => {
   ]);
 
   const expressApp = app.setup();
-  await request(expressApp)
-    .get('/')
-    .expect(404);
-  const response = await request(expressApp)
-    .get('/local')
-    .expect(200);
+  await request(expressApp).get('/').expect(404);
+  const response = await request(expressApp).get('/local').expect(200);
 
   expect(response.text).toBe('Local handler');
 });
 
 test('listen', async () => {
-  const listen = jest.fn((_, cb) => cb());
+  const listen = jest.fn((_, cb: () => void) => cb());
   class MockApp extends App {
     setup(): Express {
       return ({ listen } as unknown) as Express;

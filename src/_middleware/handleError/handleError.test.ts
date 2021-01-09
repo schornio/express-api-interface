@@ -10,9 +10,7 @@ test('handleError Object', async () => {
   });
   app.use(handleError);
 
-  const response = await request(app)
-    .get('/error')
-    .expect(500);
+  const response = await request(app).get('/error').expect(500);
 
   expect(response.body).toStrictEqual({
     error: { message: 'Internal server error' },
@@ -27,9 +25,7 @@ test('handleError Error', async () => {
   });
   app.use(handleError);
 
-  const response = await request(app)
-    .get('/error')
-    .expect(500);
+  const response = await request(app).get('/error').expect(500);
 
   expect(response.body).toStrictEqual({
     error: { message: 'Error message' },
@@ -44,9 +40,7 @@ test('handleError HTTPError', async () => {
   });
   app.use(handleError);
 
-  const response = await request(app)
-    .get('/error')
-    .expect(404);
+  const response = await request(app).get('/error').expect(404);
 
   expect(response.body).toStrictEqual({
     error: { message: 'HTTPError message' },

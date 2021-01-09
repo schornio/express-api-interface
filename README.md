@@ -1,10 +1,11 @@
 # @schornio/express-api-interface
 
+[![Build Status](https://travis-ci.org/schornio/express-api-interface.svg?branch=master)](https://travis-ci.org/schornio/express-api-interface)
+
 ## `Router`
 
 ```javascript
-import { HTTPNotFoundError } from '@schornio/express-api-interface';
-import { Router } from '@schornio/express-api-interface';
+import { HTTPNotFoundError, Router } from '@schornio/express-api-interface';
 
 export const router = new Router();
 

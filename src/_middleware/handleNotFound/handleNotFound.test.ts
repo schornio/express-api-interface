@@ -8,9 +8,7 @@ test('handleNotFound', async () => {
   app.use(handleNotFound);
   app.use(handleError);
 
-  const response = await request(app)
-    .get('/error')
-    .expect(404);
+  const response = await request(app).get('/error').expect(404);
 
   expect(response.body).toStrictEqual({
     error: { message: 'Not found' },
