@@ -9,10 +9,31 @@ import { HTTPNotFoundError, Router } from '@schornio/express-api-interface';
 
 export const router = new Router();
 
-router.get('/endpoint', async (request) => {
+router.get('/endpoint_sync', (request) => {
   const q = request.ensureQuery('q');
-  const result = await search(q);
+  const result = searchSync(q);
   return result;
+});
+
+router.get('/endpoint_async', async (request) => {
+  const q = request.ensureQuery('q');
+  const result = await searchAsync(q);
+  return result;
+});
+
+router.get('/endpoint/:param1', (request) => {
+  const q = request.ensureParam('param1');
+  const result = searchSync(q);
+  return result;
+});
+
+router.post('/endpoint', (request) => {
+  const body = request.ensureBody(assertBodyFN);
+  saveBody(body);
+});
+
+router.post('/redirect', (request) => {
+  return new Redirect(Redirect.TemporaryRedirect, '/endpoint');
 });
 
 router.get('/error', async (request) => {
