@@ -6,10 +6,13 @@ type AssertBody<T> = (body: unknown) => asserts body is T;
 
 export class Request {
   public body: unknown;
+  public core: ExpressRequest;
   public params: Map<string, string>;
   public query: Map<string, string>;
 
   constructor(expressRequest: ExpressRequest) {
+    this.core = expressRequest;
+
     this.body = expressRequest.body;
     this.params = stringObjectToMap(expressRequest.params);
     this.query = stringObjectToMap(expressRequest.query);
@@ -34,5 +37,9 @@ export class Request {
       return value;
     }
     throw new HTTPBadRequestError();
+  }
+
+  getRequestCore(): ExpressRequest {
+    return this.core;
   }
 }

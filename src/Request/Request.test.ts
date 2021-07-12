@@ -57,3 +57,14 @@ test('Request ensureQuery error', () => {
     request.ensureQuery('notfound');
   }).toThrow(HTTPBadRequestError);
 });
+
+test('Request get core', () => {
+  const requestCore = ({
+    params: {},
+    query: {},
+  } as unknown) as ExpressRequest;
+  const request = new Request(requestCore);
+
+  const result = request.getRequestCore();
+  expect(result).toBe(requestCore);
+});
