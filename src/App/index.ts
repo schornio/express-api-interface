@@ -6,9 +6,11 @@ import handleNotFound from '../_middleware/handleNotFound';
 
 export class App {
   private appStack: [string | undefined, ExpressHandler][];
+  private settings: [string, unknown][];
 
   constructor() {
     this.appStack = [];
+    this.settings = [];
   }
 
   registerRoutes(routeArray: [string, Router][]): void {
@@ -25,8 +27,16 @@ export class App {
     }
   }
 
+  addSetting(name: string, property: unknown): void {
+    this.settings.push([name, property]);
+  }
+
   setup(): Express {
     const app = express();
+
+    for (const [settingName, settingValue] of this.settings) {
+      app.set(settingName, settingValue);
+    }
 
     app.use(bodyParser.json());
 

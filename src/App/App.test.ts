@@ -45,6 +45,15 @@ test('registerMiddlewares local', async () => {
   expect(response.text).toBe('Local handler');
 });
 
+test('addSetting', () => {
+  const app = new App();
+  const testSettingValue = {};
+  app.addSetting('test setting', testSettingValue);
+
+  const expressApp = app.setup();
+  expect(expressApp.get('test setting')).toBe(testSettingValue);
+});
+
 test('listen', async () => {
   const listen = jest.fn((_, cb: () => void) => cb());
   class MockApp extends App {

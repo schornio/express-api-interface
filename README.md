@@ -50,6 +50,8 @@ const PORT = process.env.PORT || '80';
 
 const app = new App();
 
+app.addSetting('trust proxy', true);
+
 app.registerRoutes([['/endpoint', router]]);
 
 /* eslint-disable-next-line no-console */
