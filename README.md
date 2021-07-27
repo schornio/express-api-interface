@@ -57,3 +57,19 @@ app.registerRoutes([['/endpoint', router]]);
 /* eslint-disable-next-line no-console */
 app.start(PORT).then(() => console.log(`Listening on port ${PORT}...`));
 ```
+
+## `Request`
+
+- `ensureBody<T>(assert: AssertBody<T>): T`
+- `ensureParam(name: string): string`
+- `ensureQuery(name: string): string`
+- `setPayload<T>(name: string, payload: T): void`
+- `getPayload<T>(name: string): T | undefined`
+- `ensurePayload<T>(name: string): T`
+- `getRequestCore(): ExpressRequest`
+
+### Static
+
+- `setPayload<T>(expressRequest: ExpressRequest, name: string, payload: T): void`
+- `getPayload<T>(expressRequest: ExpressRequest, name: string): T | undefined`
+- `ensurePayload<T>(expressRequest: ExpressRequest, name: string): T`

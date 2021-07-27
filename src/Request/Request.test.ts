@@ -1,5 +1,5 @@
+import { HTTPBadRequestError, HTTPInternalServerError } from '../Error';
 import { Request as ExpressRequest } from 'express';
-import { HTTPBadRequestError } from '../Error';
 import { Request } from './index';
 
 test('Request ensureBody', () => {
@@ -56,6 +56,30 @@ test('Request ensureQuery error', () => {
   expect(() => {
     request.ensureQuery('notfound');
   }).toThrow(HTTPBadRequestError);
+});
+
+test('Request get and set payload', () => {
+  const request = new Request(({
+    params: {},
+    query: {},
+  } as unknown) as ExpressRequest);
+
+  request.setPayload('found', 'found payload');
+  expect(request.getPayload('found')).toBe('found payload');
+  expect(request.getPayload('not found')).toBe(undefined);
+});
+
+test('Request ensurePayload', () => {
+  const request = new Request(({
+    params: {},
+    query: {},
+  } as unknown) as ExpressRequest);
+
+  request.setPayload('found', 'found payload');
+  expect(request.ensurePayload('found')).toBe('found payload');
+  expect(() => request.ensurePayload('not found')).toThrow(
+    HTTPInternalServerError,
+  );
 });
 
 test('Request get core', () => {

@@ -1,4 +1,9 @@
-import { HTTPBadRequestError, HTTPError, HTTPNotFoundError } from './index';
+import {
+  HTTPBadRequestError,
+  HTTPError,
+  HTTPInternalServerError,
+  HTTPNotFoundError,
+} from './index';
 
 test('HTTPError', () => {
   const defaultError = new HTTPError();
@@ -19,7 +24,7 @@ test('HTTPBadRequestError', () => {
   expect(errorWithMessage.message).toBe('Message');
 });
 
-test('HTTPBadRequestError', () => {
+test('HTTPNotFoundError', () => {
   const error = new HTTPNotFoundError();
   const errorWithMessage = new HTTPNotFoundError('Message');
 
@@ -27,5 +32,16 @@ test('HTTPBadRequestError', () => {
   expect(error.message).toBe('Not found');
 
   expect(errorWithMessage.statusCode).toBe(404);
+  expect(errorWithMessage.message).toBe('Message');
+});
+
+test('HTTPInternalServerError', () => {
+  const error = new HTTPInternalServerError();
+  const errorWithMessage = new HTTPInternalServerError('Message');
+
+  expect(error.statusCode).toBe(500);
+  expect(error.message).toBe('Internal server error');
+
+  expect(errorWithMessage.statusCode).toBe(500);
   expect(errorWithMessage.message).toBe('Message');
 });

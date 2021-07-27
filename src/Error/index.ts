@@ -31,3 +31,12 @@ export class HTTPNotFoundError extends HTTPError {
     super({ message: message ?? 'Not found', statusCode: ErrorCode.NotFound });
   }
 }
+
+export class HTTPInternalServerError extends HTTPError {
+  constructor(message?: string) {
+    super({
+      message: message ?? 'Internal server error',
+      statusCode: ErrorCode.InternalServerError,
+    });
+  }
+}
